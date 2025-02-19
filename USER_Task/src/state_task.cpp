@@ -1,5 +1,6 @@
 #include "USER_Task/inc/state_task.h"
 #include <Device/inc/dbus.h>
+#include <cmath>
 
 
 State::State(MotorCtrl * MW_L, MotorCtrl * MW_R):MW_L(MW_L), MW_R(MW_R)
@@ -21,6 +22,9 @@ State::State(MotorCtrl * MW_L, MotorCtrl * MW_R):MW_L(MW_L), MW_R(MW_R)
 
     lidar = new lidarSense("lidar");
     lidar->SensorInit();
+
+    myimu = new MyImu("imu","gyro");
+    myimu->imuInit();
   }
 
 
@@ -28,6 +32,7 @@ void State::getSensorValue_500hz()
 {   
     disSensor_top->getPositionValue();
     gps->getGPSValue();
+    myimu->getImuData();   //仅获取imu数据
 }
 /// @brief 100hz执行，减小cpu计算负担
 void State::getSensorValue_100hz()
@@ -118,7 +123,7 @@ bool State::find_red()
             else
             {
                 error -= 70;
-             }
+            }
             error = LIMIT(error, -50, 50);
             speed_L = -4 + error * 0.09; 
             speed_R = -4 - error * 0.09; 
@@ -132,8 +137,6 @@ bool State::find_red()
     }
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
- //   cout <<camera_F->center_x<<" "<<camera_B->center_x<<" "<<camera_L->center_x<<" "<<camera_R->center_x<<endl;
- //   cout<<speed_R<<"   "<<speed_L<<endl;
     return true;
 }
 /// @brief 根据不同摄像头检测红色方位调整正方向
@@ -162,7 +165,7 @@ void State::Adjust_Dir()
     {
         speed_L = -4, speed_R = -4;    //旁摄像头未发现红色---直走
     }
-    cout << count3 << endl;
+//    cout << count3 << endl;
 }
 
 
@@ -185,20 +188,24 @@ bool State::send_pack()
 */
 bool State::back_one_second()
 {
-    // static int count5 = 0;
-    // if (count5 < 500)
-    // {
-    //     speed_L = 0; speed_R = 0;
-    //     MW_L->setMotorSpeed(speed_L);
-    //     MW_R->setMotorSpeed(speed_R);
-    //     count5++;
-    //     return false;
-    // }
-    // else
-    // {
-    //     count5 = 0;
-    //     return true;
-    // }
+    if(lidar->mindisPosition < 0.15)
+    {
+        //使用激光雷达值过小模拟碰撞
+    }
+    static int count5 = 0;
+    if (count5 < 500)
+    {
+        speed_L = 0; speed_R = 0;
+        MW_L->setMotorSpeed(speed_L);
+        MW_R->setMotorSpeed(speed_R);
+        count5++;
+        return false;
+    }
+    else
+    {
+        count5 = 0;
+        return true;
+    }
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
     return true;
@@ -209,15 +216,50 @@ bool State::back_one_second()
 */
 bool State::back_origin()
 {
-    static int count = 0;
-    if (count < 1000)
+    float x = gps->position[0];
+    float y = gps->position[1]; 
+    float lineDis = sqrt(x*x + y*y);  //计算直线距离限制移动速度
+    float angle_set = atan2(x,y);
+    if(angle_set < 0)
     {
-        count++;
-        return false;
+        angle_set = -(angle_set + 3.14159f);
     }
     else
     {
-        count = 0;
-        return true;
+        angle_set = 3.14159f - angle_set;
     }
+    angle_set = LIMIT(angle_set, -3.0f ,3.0f); //限制跟随角度，避免出现过大角度超调
+    float angle_now = myimu->yaw;
+    float error = angle_set - angle_now;
+    error = LIMIT(error, -3.0f, 3.0f);
+    
+    if(lineDis > 1)  //根据直线距离限制移动速度
+    {
+        speed_L = -3 - error * 2.0f; 
+        speed_R = -3 + error * 2.0f;
+    }
+    else if(lineDis > 0.05)
+    {
+        speed_L = -2 - error * 1.5f; 
+        speed_R = -2 + error * 1.5f;
+    }
+    else
+    {
+        speed_L = angle_now * 2.0f; 
+        speed_R = -angle_now * 2.0f;
+    }
+    if((lineDis < 0.05) && (ABS(angle_now) < 0.01)) //到达目标点之后停止移动
+    {
+        speed_L = 0;
+        speed_R = 0;
+    }
+
+    MW_L->setMotorSpeed(speed_L);
+    MW_R->setMotorSpeed(speed_R);
+
+
+    cout <<" speed_L： "<<speed_L<<" speed_R: "<<speed_R<<endl;
+    cout<<"lineDis: "<<lineDis<<" error: "<<error<<endl;
+    //cout << " yaw: "<<angle_now<<endl;
+    return true;
 }

@@ -43,6 +43,6 @@ void lidarSense::getPositionValue()
 		}
 	}
 	//mindisPosition_2
-	cout << mindisPosition_2 << " " << mindisNum_2 << endl;
-    cout << lidar_values[20] << " " << lidar_values[50] << " " << lidar_values[80] << " " << lidar_values[100] << " " << lidar_values[110] << " " << lidar_values[120] << " " << endl;
+	//cout << mindisPosition_2 << " " << mindisNum_2 << endl;
+    //cout << lidar_values[20] << " " << lidar_values[50] << " " << lidar_values[80] << " " << lidar_values[100] << " " << lidar_values[110] << " " << lidar_values[120] << " " << endl;
 }

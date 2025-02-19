@@ -25,8 +25,9 @@ void Chassis::chassis_run(void)
     //MW_L->getMotorFbPosition();
     //MW_R->getMotorFbPosition();
     //state->move_like8();
-    state->find_red();
+    //state->find_red();
     //state->back_one_second();
+    state->back_origin();
 }
 
 

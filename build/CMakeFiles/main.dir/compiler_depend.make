@@ -451,7 +451,9 @@ CMakeFiles/main.dir/AutoRobot.cpp.o: ../AutoRobot.cpp \
   /home/tdt/webots/include/controller/cpp/webots/GPS.hpp \
   ../Device/inc/lidar.h \
   /home/tdt/webots/include/controller/cpp/webots/Lidar.hpp \
-  /home/tdt/webots/include/controller/c/webots/lidar_point.h
+  /home/tdt/webots/include/controller/c/webots/lidar_point.h \
+  ../Device/inc/myImu.h \
+  /home/tdt/webots/include/controller/cpp/webots/Gyro.hpp
 
 CMakeFiles/main.dir/Device/src/camera.cpp.o: ../Device/src/camera.cpp \
   /usr/include/stdc-predef.h \
@@ -4762,19 +4764,22 @@ CMakeFiles/main.dir/USER_Task/src/state_task.cpp.o: ../USER_Task/src/state_task.
   ../Device/inc/lidar.h \
   /home/tdt/webots/include/controller/cpp/webots/Lidar.hpp \
   /home/tdt/webots/include/controller/c/webots/lidar_point.h \
+  ../Device/inc/myImu.h \
+  /home/tdt/webots/include/controller/cpp/webots/InertialUnit.hpp \
+  /home/tdt/webots/include/controller/cpp/webots/Gyro.hpp \
   ../Device/inc/dbus.h \
   /home/tdt/webots/include/controller/cpp/webots/Keyboard.hpp
 
 
 ../USER_Task/src/chassis_task.cpp:
 
-../Device/inc/myImu.h:
-
 ../Device/src/motorCtrl.cpp:
 
 ../Device/src/lidar.cpp:
 
 ../Device/src/gps.cpp:
+
+../Device/inc/myImu.h:
 
 /home/tdt/webots/include/controller/c/webots/lidar_point.h:
 

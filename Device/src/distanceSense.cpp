@@ -14,7 +14,7 @@ void distanceSense::SensorInit()
 void distanceSense::getPositionValue()
 {
 	position = sensor->getValue();
-    cout << position << endl;
+//    cout << position << endl;
 	if (isnan(position))
 	{	
 		cout << "motor position nan" << endl;

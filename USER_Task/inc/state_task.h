@@ -5,6 +5,8 @@
 #include <Device/inc/distanceSense.h>
 #include <Device/inc/gps.h>
 #include <Device/inc/lidar.h>
+#include <Device/inc/myImu.h>
+
 
 class State{
     public:
@@ -24,6 +26,8 @@ class State{
     GpsSense * gps;
     
     lidarSense * lidar;
+
+    MyImu * myimu;
 
     bool wait_ten_seconds();  //State_1
     bool move_like8();        //State_2
