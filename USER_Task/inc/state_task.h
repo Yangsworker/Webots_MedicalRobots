@@ -4,6 +4,7 @@
 #include <Device/inc/camera.h>
 #include <Device/inc/distanceSense.h>
 #include <Device/inc/gps.h>
+#include <Device/inc/lidar.h>
 
 class State{
     public:
@@ -21,7 +22,8 @@ class State{
     distanceSense * disSensor_top;
 
     GpsSense * gps;
-
+    
+    lidarSense * lidar;
 
     bool wait_ten_seconds();  //State_1
     bool move_like8();        //State_2

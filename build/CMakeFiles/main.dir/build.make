@@ -111,24 +111,10 @@ CMakeFiles/main.dir/Device/src/dbus.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Device/src/dbus.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/dbus.cpp -o CMakeFiles/main.dir/Device/src/dbus.cpp.s
 
-CMakeFiles/main.dir/Device/src/distance.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/Device/src/distance.cpp.o: ../Device/src/distance.cpp
-CMakeFiles/main.dir/Device/src/distance.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/Device/src/distance.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Device/src/distance.cpp.o -MF CMakeFiles/main.dir/Device/src/distance.cpp.o.d -o CMakeFiles/main.dir/Device/src/distance.cpp.o -c /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/distance.cpp
-
-CMakeFiles/main.dir/Device/src/distance.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/Device/src/distance.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/distance.cpp > CMakeFiles/main.dir/Device/src/distance.cpp.i
-
-CMakeFiles/main.dir/Device/src/distance.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Device/src/distance.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/distance.cpp -o CMakeFiles/main.dir/Device/src/distance.cpp.s
-
 CMakeFiles/main.dir/Device/src/distanceSense.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/Device/src/distanceSense.cpp.o: ../Device/src/distanceSense.cpp
 CMakeFiles/main.dir/Device/src/distanceSense.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/Device/src/distanceSense.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/Device/src/distanceSense.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Device/src/distanceSense.cpp.o -MF CMakeFiles/main.dir/Device/src/distanceSense.cpp.o.d -o CMakeFiles/main.dir/Device/src/distanceSense.cpp.o -c /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/distanceSense.cpp
 
 CMakeFiles/main.dir/Device/src/distanceSense.cpp.i: cmake_force
@@ -142,7 +128,7 @@ CMakeFiles/main.dir/Device/src/distanceSense.cpp.s: cmake_force
 CMakeFiles/main.dir/Device/src/gps.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/Device/src/gps.cpp.o: ../Device/src/gps.cpp
 CMakeFiles/main.dir/Device/src/gps.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/Device/src/gps.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/Device/src/gps.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Device/src/gps.cpp.o -MF CMakeFiles/main.dir/Device/src/gps.cpp.o.d -o CMakeFiles/main.dir/Device/src/gps.cpp.o -c /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/gps.cpp
 
 CMakeFiles/main.dir/Device/src/gps.cpp.i: cmake_force
@@ -152,6 +138,20 @@ CMakeFiles/main.dir/Device/src/gps.cpp.i: cmake_force
 CMakeFiles/main.dir/Device/src/gps.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Device/src/gps.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/gps.cpp -o CMakeFiles/main.dir/Device/src/gps.cpp.s
+
+CMakeFiles/main.dir/Device/src/lidar.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Device/src/lidar.cpp.o: ../Device/src/lidar.cpp
+CMakeFiles/main.dir/Device/src/lidar.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/Device/src/lidar.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Device/src/lidar.cpp.o -MF CMakeFiles/main.dir/Device/src/lidar.cpp.o.d -o CMakeFiles/main.dir/Device/src/lidar.cpp.o -c /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/lidar.cpp
+
+CMakeFiles/main.dir/Device/src/lidar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/Device/src/lidar.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/lidar.cpp > CMakeFiles/main.dir/Device/src/lidar.cpp.i
+
+CMakeFiles/main.dir/Device/src/lidar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Device/src/lidar.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/Device/src/lidar.cpp -o CMakeFiles/main.dir/Device/src/lidar.cpp.s
 
 CMakeFiles/main.dir/Device/src/motorCtrl.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/Device/src/motorCtrl.cpp.o: ../Device/src/motorCtrl.cpp
@@ -228,9 +228,9 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/AutoRobot.cpp.o" \
 "CMakeFiles/main.dir/Device/src/camera.cpp.o" \
 "CMakeFiles/main.dir/Device/src/dbus.cpp.o" \
-"CMakeFiles/main.dir/Device/src/distance.cpp.o" \
 "CMakeFiles/main.dir/Device/src/distanceSense.cpp.o" \
 "CMakeFiles/main.dir/Device/src/gps.cpp.o" \
+"CMakeFiles/main.dir/Device/src/lidar.cpp.o" \
 "CMakeFiles/main.dir/Device/src/motorCtrl.cpp.o" \
 "CMakeFiles/main.dir/Device/src/myImu.cpp.o" \
 "CMakeFiles/main.dir/Device/src/positionSense.cpp.o" \
@@ -243,9 +243,9 @@ main_EXTERNAL_OBJECTS =
 main: CMakeFiles/main.dir/AutoRobot.cpp.o
 main: CMakeFiles/main.dir/Device/src/camera.cpp.o
 main: CMakeFiles/main.dir/Device/src/dbus.cpp.o
-main: CMakeFiles/main.dir/Device/src/distance.cpp.o
 main: CMakeFiles/main.dir/Device/src/distanceSense.cpp.o
 main: CMakeFiles/main.dir/Device/src/gps.cpp.o
+main: CMakeFiles/main.dir/Device/src/lidar.cpp.o
 main: CMakeFiles/main.dir/Device/src/motorCtrl.cpp.o
 main: CMakeFiles/main.dir/Device/src/myImu.cpp.o
 main: CMakeFiles/main.dir/Device/src/positionSense.cpp.o

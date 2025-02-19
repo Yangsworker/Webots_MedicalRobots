@@ -18,6 +18,9 @@ State::State(MotorCtrl * MW_L, MotorCtrl * MW_R):MW_L(MW_L), MW_R(MW_R)
 
     gps = new GpsSense("gps");
     gps->SensorInit();
+
+    lidar = new lidarSense("lidar");
+    lidar->SensorInit();
   }
 
 
@@ -33,17 +36,19 @@ void State::getSensorValue_100hz()
     camera_B->getCameraImage();
     camera_L->getCameraImage();
     camera_R->getCameraImage();
+
+    lidar->getPositionValue();
 }
 
 
 
 /**
- * @brief State1 等待10秒,500hz执行,count阈值为500
+ * @brief State1 等待10秒,500hz执行,count阈值为5000
 */
 bool State::wait_ten_seconds() 
 {
     static int count = 0;
-    if (count < 500)
+    if (count < 5000)
     {
         count++;
         return false;
@@ -70,7 +75,7 @@ bool State::move_like8()
     }
     speed_L = !movelike8_turnround ? 6 : 3;
     speed_R = !movelike8_turnround ? 3 : 6;
-    cout<<speed_R<<"   "<<speed_L<<"   "<<count2<<"  "<<movelike8_turnround<<endl;  
+//    cout<<speed_R<<"   "<<speed_L<<"   "<<count2<<"  "<<movelike8_turnround<<endl;  
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
     return true;
@@ -89,13 +94,13 @@ bool State::find_red()
     else   
     {
         count3 = 0;
-        speed_L = -3 + camera_F->error_x * 0.05;
-        speed_R = -3 - camera_F->error_x * 0.05;
+        speed_L = -4 + camera_F->error_x * 0.05;
+        speed_R = -4 - camera_F->error_x * 0.05;
     }
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
-    cout <<camera_F->center_x<<" "<<camera_B->center_x<<" "<<camera_L->center_x<<" "<<camera_R->center_x<<endl;
-    cout<<speed_R<<"   "<<speed_L<<endl;
+ //   cout <<camera_F->center_x<<" "<<camera_B->center_x<<" "<<camera_L->center_x<<" "<<camera_R->center_x<<endl;
+ //   cout<<speed_R<<"   "<<speed_L<<endl;
     return true;
 }
 /// @brief 根据不同摄像头检测红色方位调整正方向
@@ -131,38 +136,58 @@ void State::Adjust_Dir()
 
 /**
  * @brief State4 运输快递
+ * @note 速度为0,等待包裹取出
 */
 bool State::send_pack()
 {
-    static int count = 0;
-    if (count < 1000)
-    {
-        count++;
-        return false;
-    }
-    else
-    {
-        count = 0;
-        return true;
-    }
+    speed_L = 0; speed_R = 0;
+    MW_L->setMotorSpeed(speed_L);
+    MW_R->setMotorSpeed(speed_R);
+    return true;
 }
 
 /**
  * @brief State5 回退一秒
+ * @note 500hz执行,count阈值为500
 */
 bool State::back_one_second()
 {
-    static int count = 0;
-    if (count < 1000)
+    if(lidar->mindisPosition < 0.35)
     {
-        count++;
-        return false;
+        int error = lidar->mindisNum - 64;
+        if(error <= 0)
+        {
+            error += 70;
+        }
+        else
+        {
+            error -= 70;
+        }
+        error = LIMIT(error, -60, 60);
+        speed_L = -4 + error * 0.09; 
+        speed_R = -4 - error * 0.09; 
     }
     else
     {
-        count = 0;
-        return true;
+        speed_L = -4; speed_R = -4;  
     }
+    MW_L->setMotorSpeed(speed_L);
+    MW_R->setMotorSpeed(speed_R);
+    return true;
+    // static int count5 = 0;
+    // if (count5 < 500)
+    // {
+    //     speed_L = 0; speed_R = 0;
+    //     MW_L->setMotorSpeed(speed_L);
+    //     MW_R->setMotorSpeed(speed_R);
+    //     count5++;
+    //     return false;
+    // }
+    // else
+    // {
+    //     count5 = 0;
+    //     return true;
+    // }
 }
 
 /**

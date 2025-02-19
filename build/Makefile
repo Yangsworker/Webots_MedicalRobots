@@ -221,30 +221,6 @@ Device/src/dbus.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/dbus.cpp.s
 .PHONY : Device/src/dbus.cpp.s
 
-Device/src/distance.o: Device/src/distance.cpp.o
-.PHONY : Device/src/distance.o
-
-# target to build an object file
-Device/src/distance.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/distance.cpp.o
-.PHONY : Device/src/distance.cpp.o
-
-Device/src/distance.i: Device/src/distance.cpp.i
-.PHONY : Device/src/distance.i
-
-# target to preprocess a source file
-Device/src/distance.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/distance.cpp.i
-.PHONY : Device/src/distance.cpp.i
-
-Device/src/distance.s: Device/src/distance.cpp.s
-.PHONY : Device/src/distance.s
-
-# target to generate assembly for a file
-Device/src/distance.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/distance.cpp.s
-.PHONY : Device/src/distance.cpp.s
-
 Device/src/distanceSense.o: Device/src/distanceSense.cpp.o
 .PHONY : Device/src/distanceSense.o
 
@@ -292,6 +268,30 @@ Device/src/gps.s: Device/src/gps.cpp.s
 Device/src/gps.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/gps.cpp.s
 .PHONY : Device/src/gps.cpp.s
+
+Device/src/lidar.o: Device/src/lidar.cpp.o
+.PHONY : Device/src/lidar.o
+
+# target to build an object file
+Device/src/lidar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/lidar.cpp.o
+.PHONY : Device/src/lidar.cpp.o
+
+Device/src/lidar.i: Device/src/lidar.cpp.i
+.PHONY : Device/src/lidar.i
+
+# target to preprocess a source file
+Device/src/lidar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/lidar.cpp.i
+.PHONY : Device/src/lidar.cpp.i
+
+Device/src/lidar.s: Device/src/lidar.cpp.s
+.PHONY : Device/src/lidar.s
+
+# target to generate assembly for a file
+Device/src/lidar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Device/src/lidar.cpp.s
+.PHONY : Device/src/lidar.cpp.s
 
 Device/src/motorCtrl.o: Device/src/motorCtrl.cpp.o
 .PHONY : Device/src/motorCtrl.o
@@ -433,15 +433,15 @@ help:
 	@echo "... Device/src/dbus.o"
 	@echo "... Device/src/dbus.i"
 	@echo "... Device/src/dbus.s"
-	@echo "... Device/src/distance.o"
-	@echo "... Device/src/distance.i"
-	@echo "... Device/src/distance.s"
 	@echo "... Device/src/distanceSense.o"
 	@echo "... Device/src/distanceSense.i"
 	@echo "... Device/src/distanceSense.s"
 	@echo "... Device/src/gps.o"
 	@echo "... Device/src/gps.i"
 	@echo "... Device/src/gps.s"
+	@echo "... Device/src/lidar.o"
+	@echo "... Device/src/lidar.i"
+	@echo "... Device/src/lidar.s"
 	@echo "... Device/src/motorCtrl.o"
 	@echo "... Device/src/motorCtrl.i"
 	@echo "... Device/src/motorCtrl.s"

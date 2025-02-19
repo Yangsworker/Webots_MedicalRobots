@@ -399,4 +399,7 @@ CMakeFiles/main.dir/AutoRobot.cpp.o: \
  /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/distanceSense.h \
  /home/tdt/webots/include/controller/cpp/webots/DistanceSensor.hpp \
  /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/gps.h \
- /home/tdt/webots/include/controller/cpp/webots/GPS.hpp
+ /home/tdt/webots/include/controller/cpp/webots/GPS.hpp \
+ /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/lidar.h \
+ /home/tdt/webots/include/controller/cpp/webots/Lidar.hpp \
+ /home/tdt/webots/include/controller/cpp/webots/../../c/webots/lidar_point.h

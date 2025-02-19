@@ -390,5 +390,8 @@ CMakeFiles/main.dir/USER_Task/src/state_task.cpp.o: \
  /home/tdt/webots/include/controller/cpp/webots/DistanceSensor.hpp \
  /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/gps.h \
  /home/tdt/webots/include/controller/cpp/webots/GPS.hpp \
+ /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/lidar.h \
+ /home/tdt/webots/include/controller/cpp/webots/Lidar.hpp \
+ /home/tdt/webots/include/controller/cpp/webots/../../c/webots/lidar_point.h \
  /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc/dbus.h \
  /home/tdt/webots/include/controller/cpp/webots/Keyboard.hpp
