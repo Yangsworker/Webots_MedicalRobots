@@ -31,6 +31,7 @@ using namespace Eigen;
 
 
 #define LIMIT(x, min, max) ((x) < (min) ? (min) : ((x) > (max) ? (max) : (x)))
+#define ABS(x) ((x) > 0 ? (x) : (-(x)))
 extern double titaClock;
 // 重置控制台格式
 #define ANSI_RESET "\x1b[0m"

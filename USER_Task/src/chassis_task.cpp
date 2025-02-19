@@ -23,11 +23,12 @@ Chassis::Chassis()
 void Chassis::chassis_run(void)
 {
 //    chassis_control();
-//    state->move_like8();
-    // MW_L->getMotorFbPosition();
-    // MW_R->getMotorFbPosition();
+    
+    //MW_L->getMotorFbPosition();
+    //MW_R->getMotorFbPosition();
     //state->disSensor_top->getPositionValue();
     state->gps->getGPSValue();   //Gps数据即为当前位置数据SSSSS
+    state->move_like8();
 }
 
 

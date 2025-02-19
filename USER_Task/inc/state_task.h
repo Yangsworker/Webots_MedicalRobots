@@ -28,4 +28,11 @@ class State{
     bool back_one_second();   //State_5
     bool back_origin();       //State_6   返回原点
 
+
+
+    bool movelike8_turnround = 0;  //是否换向（用于8字行走）
+
+
+
+
 };

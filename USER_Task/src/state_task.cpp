@@ -45,8 +45,19 @@ bool State::wait_ten_seconds()
 */
 bool State::move_like8()
 {
-   MW_L->setMotorSpeed(1);
-   MW_R->setMotorSpeed(1);
+   int speed_L = 0, speed_R = 0; 
+    static int count2 = 0;   //计数
+    count2++;
+    if(ABS(gps->position[0]) < 0.03 && ABS(gps->position[1]) < 0.03 && count2 > 200)   //回到原地
+    {
+     count2 = 0;
+     movelike8_turnround = !movelike8_turnround;
+    }
+    speed_L = !movelike8_turnround ? 6 : 3;
+    speed_R = !movelike8_turnround ? 3 : 6;
+    cout<<speed_R<<"   "<<speed_L<<"   "<<count2<<"  "<<movelike8_turnround<<endl;  
+   MW_L->setMotorSpeed(speed_L);
+   MW_R->setMotorSpeed(speed_R);
    return true;
 }
 
