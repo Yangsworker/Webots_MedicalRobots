@@ -16,6 +16,8 @@ void lidarSense::getPositionValue()
 	mindisPosition = 0.5;     mindisNum = 130;
 	mindisPosition_2 = 0.5;   mindisNum_2 = 130;
 	lidar_values = sensor->getRangeImage();
+	//获取中间值
+	midValue = lidar_values[64];
 	//获取最小值
 	for(int a = 0; a < 128; a++)
 	{

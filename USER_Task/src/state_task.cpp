@@ -53,9 +53,17 @@ void State::getSensorValue_100hz()
 bool State::wait_ten_seconds() 
 {
     static int count = 0;
-    if (count < 5000)
+    speed_L = 0;
+    speed_R = 0;
+    MW_L->setMotorSpeed(speed_L);
+    MW_R->setMotorSpeed(speed_R);
+    if (count < 312)   //10000/32=312.5
     {
         count++;
+        if((count % 31) == 0)
+        {
+            cout <<(count/31) <<" seconds" << endl;
+        }
         return false;
     }
     else
@@ -72,18 +80,48 @@ bool State::wait_ten_seconds()
 bool State::move_like8()
 { 
     static int count2 = 0;   //计数
+    static int count22 = 0;  //用来统计8字次数
     count2++;
-    if(ABS(gps->position[0]) < 0.03 && ABS(gps->position[1]) < 0.03 && count2 > 200)   //回到原地
+    if(ABS(gps->position[0]) < 0.05 && ABS(gps->position[1]) < 0.05 && count2 > 200)   //回到原地
     {
-     count2 = 0;
-     movelike8_turnround = !movelike8_turnround;
+        count22++;
+        count2 = 0;
+        movelike8_turnround = !movelike8_turnround;
     }
     speed_L = !movelike8_turnround ? 6 : 3;
     speed_R = !movelike8_turnround ? 3 : 6;
-//    cout<<speed_R<<"   "<<speed_L<<"   "<<count2<<"  "<<movelike8_turnround<<endl;  
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
-    return true;
+    if(count22 < 2)
+    {
+        return false;
+    }
+    else
+    {
+        count22 = 0;
+        return true;
+    }  
+}
+/**
+ * @brief 避障
+*/
+void State::Avoid_obstacles(void)
+{
+    if(lidar->mindisPosition < 0.35)    //前摄像头未发现红色，启用全避障
+    {
+        int error = lidar->mindisNum - 64;
+        if(error <= 0)
+        {
+            error += 70;
+        }
+        else
+        {
+            error -= 70;
+        }
+        error = LIMIT(error, -60, 60);
+        speed_L = -4 + error * 0.09; 
+        speed_R = -4 - error * 0.09; 
+    }
 }
 
 /**
@@ -95,21 +133,7 @@ bool State::find_red()
     if(camera_F->center_x == 0)   //前置摄像头未发现红色才执行换向操作
     {
         Adjust_Dir();   //探索寻找红色
-        if(lidar->mindisPosition < 0.35)    //前摄像头未发现红色，启用全避障
-        {
-            int error = lidar->mindisNum - 64;
-            if(error <= 0)
-            {
-                error += 70;
-            }
-            else
-            {
-                error -= 70;
-             }
-            error = LIMIT(error, -60, 60);
-            speed_L = -4 + error * 0.09; 
-            speed_R = -4 - error * 0.09; 
-        }
+        Avoid_obstacles();
     }
     else   
     {
@@ -134,10 +158,18 @@ bool State::find_red()
             speed_R = -4 - camera_F->error_x * 0.05;
         }
         count3 = 0;      //重置其他摄像头检测红色计数
+        if(lidar->lidar_values[64] < 0.25 || lidar->lidar_values[60] < 0.25 || lidar->lidar_values[70] < 0.25)
+        {
+            speed_L = 0;
+            speed_R = 0;
+            MW_L->setMotorSpeed(speed_L);
+            MW_R->setMotorSpeed(speed_R);
+            return true;
+        }
     }
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
-    return true;
+    return false;
 }
 /// @brief 根据不同摄像头检测红色方位调整正方向
 void State::Adjust_Dir()
@@ -188,14 +220,10 @@ bool State::send_pack()
 */
 bool State::back_one_second()
 {
-    if(lidar->mindisPosition < 0.15)
-    {
-        //使用激光雷达值过小模拟碰撞
-    }
     static int count5 = 0;
-    if (count5 < 500)
+    if (count5 < 31)
     {
-        speed_L = 0; speed_R = 0;
+        speed_L = 2; speed_R = 2;
         MW_L->setMotorSpeed(speed_L);
         MW_R->setMotorSpeed(speed_R);
         count5++;
@@ -203,12 +231,12 @@ bool State::back_one_second()
     }
     else
     {
+        speed_L = 0; speed_R = 0;
+        MW_L->setMotorSpeed(speed_L);
+        MW_R->setMotorSpeed(speed_R);
         count5 = 0;
         return true;
     }
-    MW_L->setMotorSpeed(speed_L);
-    MW_R->setMotorSpeed(speed_R);
-    return true;
 }
 
 /**
@@ -233,33 +261,37 @@ bool State::back_origin()
     float error = angle_set - angle_now;
     error = LIMIT(error, -3.0f, 3.0f);
     
-    if(lineDis > 1)  //根据直线距离限制移动速度
+    if(lineDis > 0.3)  //根据直线距离限制移动速度
     {
-        speed_L = -3 - error * 2.0f; 
-        speed_R = -3 + error * 2.0f;
+        speed_L = -4 - error * 2.0f; 
+        speed_R = -4 + error * 2.0f;
     }
-    else if(lineDis > 0.05)
+    else if(lineDis > 0.03)
     {
-        speed_L = -2 - error * 1.5f; 
-        speed_R = -2 + error * 1.5f;
+        speed_L = -1 - error * 2.0f; 
+        speed_R = -1 + error * 2.0f;
     }
     else
     {
         speed_L = angle_now * 2.0f; 
         speed_R = -angle_now * 2.0f;
     }
-    if((lineDis < 0.05) && (ABS(angle_now) < 0.01)) //到达目标点之后停止移动
+    Avoid_obstacles();  //躲避障碍优先级最高
+    if((lineDis < 0.03) && (ABS(angle_now) < 0.01)) //到达目标点之后停止移动
     {
         speed_L = 0;
         speed_R = 0;
+        MW_L->setMotorSpeed(speed_L);
+        MW_R->setMotorSpeed(speed_R);
+        return true;
     }
 
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
 
 
-    cout <<" speed_L： "<<speed_L<<" speed_R: "<<speed_R<<endl;
-    cout<<"lineDis: "<<lineDis<<" error: "<<error<<endl;
+    //cout <<" speed_L： "<<speed_L<<" speed_R: "<<speed_R<<endl;
+    //cout<<"lineDis: "<<lineDis<<" error: "<<error<<endl;
     //cout << " yaw: "<<angle_now<<endl;
-    return true;
+    return false;
 }

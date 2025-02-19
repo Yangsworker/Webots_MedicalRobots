@@ -22,22 +22,103 @@ Chassis::Chassis()
 */
 void Chassis::chassis_run(void)
 {
-    //MW_L->getMotorFbPosition();
-    //MW_R->getMotorFbPosition();
-    //state->move_like8();
-    //state->find_red();
-    //state->back_one_second();
-    state->back_origin();
+    int count = 0;
+    static int last_state_count = 0;
+//以下为执行状态机
+    switch (state_count)
+    {
+    case 1:
+        if(state->wait_ten_seconds())   //等待10秒
+        {
+            state_count = 2;
+        }
+        if(state->disSensor_top->position < 100)
+        {
+            state_count = 3;
+        }
+        count = 1;
+        break;
+    case 2:
+        if(state->move_like8())         //8字行走
+        {
+            state_count = 1;           
+        }
+        count = 2;
+        break;
+    case 3:
+        if(state->find_red())           //寻找红色
+        {
+            state_count = 4;
+        }
+        if(state->lidar->mindisPosition < 0.15)
+        {
+            state_count = 5;
+            last_state_count = 3;
+        }
+        count = 3;
+        break;
+    case 4:
+        state->send_pack();          //运输快递
+        if(state->disSensor_top->position == 1000)
+        {
+            state_count = 6;
+        }
+        count = 4;
+        break;
+    case 5:
+        if(state->back_one_second())    //回退一秒
+        {
+            state_count = last_state_count;
+        }
+        count = 5;
+        break;
+    case 6: 
+        if(state->back_origin())        //返回原点
+        {
+            state_count = 2;
+        }
+        if(state->lidar->mindisPosition < 0.15)
+        {
+            state_count = 5;
+            last_state_count = 6;
+        }
+        count = 6;
+        break;
+    default:
+        break;
+    }
+    //cout<<"state_count: "<<state_count<<" " <<count<<" dis: "<<state->disSensor_top->position<<"    "<<state->lidar->midValue<<endl;
 }
 
 
 /**
  * @brief 底盘控制函数
 */
-void Chassis::chassis_control(void)
+void Chassis::State_control(void)
 {
-    // MW_L->setMotorSpeed(1);
-    // MW_R->setMotorSpeed(1);
+    switch (state_count)
+    {
+    case 1:   //等待10秒
+        state->wait_ten_seconds();   
+        break;
+    case 2:   //8字行走
+        state->move_like8();         
+        break;
+    case 3:    //寻找红色
+        state->find_red();          
+        break;
+    case 4:    //运输快递
+        state->send_pack();         
+        break;
+    case 5:    //回退一秒
+        state->back_one_second();    
+        break;
+    case 6:   //返回原点
+        state->back_origin();        
+        break;
+    default:
+        break;
+    }
 }
 
 

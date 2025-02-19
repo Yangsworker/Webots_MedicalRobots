@@ -14,6 +14,6 @@ void GpsSense::SensorInit()
 void GpsSense::getGPSValue()
 {
 	position = sensor->getValues();
-    cout << position[0] << ',' << position[1] << ',' << position[2] << endl;
+    //cout << position[0] << ',' << position[1] << ',' << position[2] << endl;
 }
 

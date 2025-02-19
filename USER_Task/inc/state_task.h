@@ -43,6 +43,7 @@ class State{
 
     void getSensorValue_500hz(void);   //获取所有传感器数据
     void getSensorValue_100hz(void);
-
+    
+    void Avoid_obstacles(void); 
 
 };
