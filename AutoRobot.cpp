@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 		}
 		if (loopCnt % 5 == 0) // 100Hz
 		{
+			chassis.state->getSensorValue_100hz();   //获取图像处理消息
 		}
 		if (loopCnt % 10 == 0) // 50Hz
 		{

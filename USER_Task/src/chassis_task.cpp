@@ -22,13 +22,10 @@ Chassis::Chassis()
 */
 void Chassis::chassis_run(void)
 {
-//    chassis_control();
-    
     //MW_L->getMotorFbPosition();
     //MW_R->getMotorFbPosition();
-    //state->disSensor_top->getPositionValue();
-    state->gps->getGPSValue();   //Gps数据即为当前位置数据SSSSS
-    state->move_like8();
+    //state->move_like8();
+    state->find_red();
 }
 
 
@@ -37,8 +34,8 @@ void Chassis::chassis_run(void)
 */
 void Chassis::chassis_control(void)
 {
-    MW_L->setMotorSpeed(1);
-    MW_R->setMotorSpeed(1);
+    // MW_L->setMotorSpeed(1);
+    // MW_R->setMotorSpeed(1);
 }
 
 
