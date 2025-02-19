@@ -89,13 +89,46 @@ bool State::find_red()
 {
     if(camera_F->center_x == 0)   //前置摄像头未发现红色才执行换向操作
     {
-        Adjust_Dir();
+        Adjust_Dir();   //探索寻找红色
+        if(lidar->mindisPosition < 0.35)    //前摄像头未发现红色，启用全避障
+        {
+            int error = lidar->mindisNum - 64;
+            if(error <= 0)
+            {
+                error += 70;
+            }
+            else
+            {
+                error -= 70;
+             }
+            error = LIMIT(error, -60, 60);
+            speed_L = -4 + error * 0.09; 
+            speed_R = -4 - error * 0.09; 
+        }
     }
     else   
     {
-        count3 = 0;
-        speed_L = -4 + camera_F->error_x * 0.05;
-        speed_R = -4 - camera_F->error_x * 0.05;
+        if(lidar->mindisPosition_2 < 0.35)    
+        {
+            int error = lidar->mindisNum_2 - 64;
+            if(error <= 0)
+            {
+                error += 70;
+            }
+            else
+            {
+                error -= 70;
+             }
+            error = LIMIT(error, -50, 50);
+            speed_L = -4 + error * 0.09; 
+            speed_R = -4 - error * 0.09; 
+        }
+        else
+        {
+            speed_L = -4 + camera_F->error_x * 0.05;
+            speed_R = -4 - camera_F->error_x * 0.05;
+        }
+        count3 = 0;      //重置其他摄像头检测红色计数
     }
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
@@ -127,7 +160,7 @@ void State::Adjust_Dir()
     }
     else
     {
-        speed_L = 0, speed_R = 0;    //旁摄像头未发现红色---直走
+        speed_L = -4, speed_R = -4;    //旁摄像头未发现红色---直走
     }
     cout << count3 << endl;
 }
@@ -152,28 +185,6 @@ bool State::send_pack()
 */
 bool State::back_one_second()
 {
-    if(lidar->mindisPosition < 0.35)
-    {
-        int error = lidar->mindisNum - 64;
-        if(error <= 0)
-        {
-            error += 70;
-        }
-        else
-        {
-            error -= 70;
-        }
-        error = LIMIT(error, -60, 60);
-        speed_L = -4 + error * 0.09; 
-        speed_R = -4 - error * 0.09; 
-    }
-    else
-    {
-        speed_L = -4; speed_R = -4;  
-    }
-    MW_L->setMotorSpeed(speed_L);
-    MW_R->setMotorSpeed(speed_R);
-    return true;
     // static int count5 = 0;
     // if (count5 < 500)
     // {
@@ -188,6 +199,9 @@ bool State::back_one_second()
     //     count5 = 0;
     //     return true;
     // }
+    MW_L->setMotorSpeed(speed_L);
+    MW_R->setMotorSpeed(speed_R);
+    return true;
 }
 
 /**

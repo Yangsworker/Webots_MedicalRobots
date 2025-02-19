@@ -17,4 +17,6 @@ public:
     int num_beams = 128;  //激光雷达数据个数
     float mindisPosition = 0;
     int mindisNum = 0;  //最近激光条数
+    float mindisPosition_2 = 0;
+    int mindisNum_2 = 0;  //最近激光条数
 };
