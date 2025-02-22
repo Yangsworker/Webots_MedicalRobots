@@ -1,4 +1,4 @@
-# Install script for directory: /home/tdt/文档/xianyu/controllers/Webots_MedicalRobots
+# Install script for directory: /home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

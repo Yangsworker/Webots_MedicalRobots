@@ -31,6 +31,7 @@ public:
     void getImuData();
     void getGyroData();
     void gyroCalculate();
+    int quanshu = 0;
     int8_t dataPossitive[3] = {1,1,1};
     bool gyroInitFlag = false;
     void isPossitive(uint8_t axis, int8_t _p);

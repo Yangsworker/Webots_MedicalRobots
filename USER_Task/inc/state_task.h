@@ -40,7 +40,7 @@ class State{
 
 
     bool movelike8_turnround = 0;  //是否换向（用于8字行走）
-
+    bool isback = 0;  //是否返回原点
     void getSensorValue_500hz(void);   //获取所有传感器数据
     void getSensorValue_100hz(void);
     

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/. -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Alg/inc -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Device/inc -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Mode/inc -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./Eigen/inc -I/home/tdt/文档/xianyu/controllers/Webots_MedicalRobots/./USER_Task/inc -I/home/tdt/webots/include/controller/cpp -I/home/tdt/webots/include/controller/c
+CXX_INCLUDES = -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/. -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/./Alg/inc -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/./Device/inc -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/./Mode/inc -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/./Eigen/inc -I/home/tdt/文档/AutoRobot/controllers/Webots_MedicalRobots/./USER_Task/inc -I/home/tdt/webots/include/controller/cpp -I/home/tdt/webots/include/controller/c
 
 CXX_FLAGS = -std=c++14 -std=gnu++14
 

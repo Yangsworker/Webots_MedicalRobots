@@ -22,6 +22,14 @@ void MyImu::getImuData()
     roll = imu->getRollPitchYaw()[0] * dataPossitive[ROLL];
     pitch = imu->getRollPitchYaw()[1] * dataPossitive[PITCH];
     yaw = imu->getRollPitchYaw()[2] * dataPossitive[YAW];
+  if((yaw_last > 3.0f) && (yaw < -3.0f))
+  {
+    quanshu++;
+  }
+  if((yaw_last < -3.0f) && (yaw > 3.0f))
+  {
+    quanshu--;
+  }
     imuTime = titaClock;
     rollSpeed = (roll - roll_last) / (imuTime - imuTime_last);
     pitchSpeed = (pitch - pitch_last) / (imuTime - imuTime_last);

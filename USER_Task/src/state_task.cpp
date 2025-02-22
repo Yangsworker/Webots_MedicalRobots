@@ -248,6 +248,8 @@ bool State::back_origin()
     float y = gps->position[1]; 
     float lineDis = sqrt(x*x + y*y);  //计算直线距离限制移动速度
     float angle_set = atan2(x,y);
+    float angle_now = myimu->yaw + (2.0f * PI * myimu->quanshu);   //获取当前过圈之后的陀螺仪角度
+ 
     if(angle_set < 0)
     {
         angle_set = -(angle_set + 3.14159f);
@@ -256,36 +258,56 @@ bool State::back_origin()
     {
         angle_set = 3.14159f - angle_set;
     }
-    angle_set = LIMIT(angle_set, -3.0f ,3.0f); //限制跟随角度，避免出现过大角度超调
-    float angle_now = myimu->yaw;
-    float error = angle_set - angle_now;
-    error = LIMIT(error, -3.0f, 3.0f);
-    
-    if(lineDis > 0.3)  //根据直线距离限制移动速度
+    if(isback)
     {
-        speed_L = -4 - error * 2.0f; 
-        speed_R = -4 + error * 2.0f;
+     angle_set = 0;
     }
-    else if(lineDis > 0.03)
+    angle_set += myimu->quanshu * 2.0f * PI;
+    if(ABS(angle_set - angle_now) > PI)
     {
-        speed_L = -1 - error * 2.0f; 
-        speed_R = -1 + error * 2.0f;
+        if((angle_set - angle_now) > 0)
+        {
+         angle_set -= 2 * PI;
+        }
+        else
+        {
+         angle_set += 2 * PI;
+        }
+     }
+
+    float error = angle_set - angle_now;
+    
+    if(lineDis > 0.2)  //根据直线距离限制移动速度
+    {
+        speed_L = -6 - error * 2.5f; 
+        speed_R = -6 + error * 2.5f;
+    }
+    else if(lineDis < 0.03)
+    {
+        isback = 1;
     }
     else
     {
-        speed_L = angle_now * 2.0f; 
-        speed_R = -angle_now * 2.0f;
+        speed_L = -2 - error * 2.0f; 
+        speed_R = -2 + error * 2.0f;
+    }
+    if(isback)
+    {
+        speed_L = -error * 2.5f;
+        speed_R = error * 2.5f;
     }
     Avoid_obstacles();  //躲避障碍优先级最高
-    if((lineDis < 0.03) && (ABS(angle_now) < 0.01)) //到达目标点之后停止移动
+    if((lineDis < 0.035) && (ABS(myimu->yaw) < 0.01)) //到达目标点之后停止移动
     {
         speed_L = 0;
         speed_R = 0;
+        isback = 0;
         MW_L->setMotorSpeed(speed_L);
         MW_R->setMotorSpeed(speed_R);
         return true;
     }
-
+    speed_L = LIMIT(speed_L, -10, 10);
+    speed_R = LIMIT(speed_R, -10, 10);
     MW_L->setMotorSpeed(speed_L);
     MW_R->setMotorSpeed(speed_R);
 
